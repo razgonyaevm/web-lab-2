@@ -1,8 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.model.PointBean" %>
-<%@ page import="com.example.model.PointResult" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +21,9 @@
     </div>
 
     <%-- Отображение ошибок --%>
-    <%
-        String error = (String) request.getAttribute("error");
-        if (error != null) {
-    %>
+    <c:if test="${not empty requestScope.error}">
         <div class="error-message" id="serverError">
-            <strong>Ошибка:</strong> <%= error %>
+            <strong>Ошибка:</strong> ${requestScope.error}
             <button onclick="hideServerError()" style="margin-left: 10px;">x</button>
         </div>
         <script>
@@ -41,20 +36,18 @@
                 }
             }
         </script>
-    <%
-        }
-    %>
+    </c:if>
 
     <div class="form-container">
         <div class="form-section">
             <form id="pointForm" method="GET" action="${pageContext.request.contextPath}/control">
                 <h3>Координата X:</h3>
                 <div class="checkbox-group">
-                    <% for (int i = -3; i <= 5; i++) { %>
+                    <c:forEach var="i" begin="0" end="8">
                         <label>
-                            <input type="checkbox" name="x" value="<%= i %>"> <%= i %>
+                            <input type="checkbox" name="x" value="${i - 3}"> ${i - 3}
                         </label>
-                    <% } %>
+                    </c:forEach>
                 </div>
 
                 <h3>Координата Y:</h3>
@@ -63,9 +56,9 @@
 
                 <h3>Радиус R:</h3>
                 <div class="checkbox-group">
-                    <% for (double r : new double[]{1, 1.5, 2, 2.5, 3}) { %>
-                        <label><input type="checkbox" name="r" value="<%= r %>"> <%= r %></label>
-                    <% } %>
+                    <c:forEach items="${[1, 1.5, 2, 2.5, 3]}" var="r">
+                        <label><input type="checkbox" name="r" value="${r}"> ${r}</label>
+                    </c:forEach>
                 </div>
 
                 <br>
@@ -82,12 +75,12 @@
                 <line x1="0" y1="-6" x2="0" y2="6" stroke="black" stroke-width="0.01"/>
 
                 <!-- Разметка осей -->
-                <% for (int i = -3; i <= 5; i++) { %>
-                    <text x="<%= i %>" y="0.15" font-size="0.2" text-anchor="middle"><%= i %></text>
-                    <line x1="<%= i %>" y1="-0.03" x2="<%= i %>" y2="0.03" stroke="black" stroke-width="0.008"/>
-                    <text x="0.15" y="<%= -i %>" font-size="0.2" text-anchor="start"><%= i %></text>
-                    <line x1="-0.03" y1="<%= i %>" x2="0.03" y2="<%= i %>" stroke="black" stroke-width="0.008"/>
-                <% } %>
+                <c:forEach var="i" begin="0" end="8">
+                    <text x="${i - 3}" y="0.15" font-size="0.2" text-anchor="middle">${i - 3}</text>
+                    <line x1="${i - 3}" y1="-0.03" x2="${i - 3}" y2="0.03" stroke="black" stroke-width="0.008"/>
+                    <text x="0.15" y="${i - 3}" font-size="0.2" text-anchor="start">${i - 3}</text>
+                    <line x1="-0.03" y1="${i - 3}" x2="0.03" y2="${i - 3}" stroke="black" stroke-width="0.008"/>
+                </c:forEach>
             </svg>
             <div id="plotInfo">Выберите R для отображения области</div>
         </div>
@@ -95,76 +88,65 @@
 
     <div class="results-section">
         <h3>Результаты предыдущих проверок</h3>
-        <%
-            PointBean pointBean = (PointBean) session.getAttribute("pointBean");
-            List<PointResult> allResults = null;
-            if (pointBean != null) {
-                allResults = pointBean.getResults();
-            }
-        %>
+        <jsp:useBean id="pointBean" class="com.example.model.PointBean" scope="session"/>
 
-        <% if (allResults != null && !allResults.isEmpty()) { %>
-            <div class="results-info">
-                <p>Всего выполнено проверок: <strong><%= allResults.size() %></strong></p>
-            </div>
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>X</th>
-                        <th>Y</th>
-                        <th>R</th>
-                        <th>Результат</th>
-                        <th>Время проверки</th>
-                        <th>Время обработки</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (int res = allResults.size() - 1; res >= 0; res--) {
-                        PointResult result = allResults.get(res);
-                    %>
+        <c:choose>
+            <c:when test="${not empty pointBean.results}">
+                <div class="results-info">
+                    <p>Всего выполнено проверок: <strong>${pointBean.results.size()}</strong></p>
+                </div>
+                <table id="resultsTable">
+                    <thead>
                         <tr>
-                            <td><%= result.getX() %></td>
-                            <td><%= result.getY() %></td>
-                            <td><%= result.getR() %></td>
-                            <td class="<%= result.isHit() ? "hit" : "miss" %>">
-                                <%= result.isHit() ? "Попадание" : "Промах" %>
-                            </td>
-                            <td><%= result.getTimestamp() %></td>
-                            <td><%= result.getProcessingTime() %> мс</td>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>R</th>
+                            <th>Результат</th>
+                            <th>Время проверки</th>
+                            <th>Время обработки</th>
                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        <% } else { %>
-            <div class="no-results">
-                <p>Пока не выполнено ни одной проверки</p>
-                <p>Заполните форму и нажмите "Проверить" чтобы увидеть результат</p>
-            </div>
-        <% } %>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${pointBean.results}" var="result" varStatus="status">
+                            <tr>
+                                <td>${result.x}</td>
+                                <td>${result.y}</td>
+                                <td>${result.r}</td>
+                                <td class="${result.hit ? 'hit' : 'miss'}">
+                                    <c:choose>
+                                        <c:when test="${result.hit}">Попадание</c:when>
+                                        <c:otherwise>Промах</c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>${result.timestamp}</td>
+                                <td>${result.processingTime} мс</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <div class="no-results">
+                    <p>Пока не выполнено ни одной проверки</p>
+                    <p>Заполните форму и нажмите "Проверить" чтобы увидеть результат</p>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <script>
         // Глобальная переменная для хранения результатов
         window.pointResults = [
-            <%
-                if (pointBean != null) {
-                    boolean first = true;
-                    for (PointResult result : pointBean.getResults()) {
-                        if (!first) out.print(",");
-            %>
-            {
-                x: <%= result.getX() %>,
-                y: <%= result.getY() %>,
-                r: <%= result.getR() %>,
-                hit: <%= result.isHit() %>,
-                timestamp: "<%= result.getTimestamp() %>",
-                processingTime: <%= result.getProcessingTime() %>
-            }
-            <%
-                        first = false;
-                    }
-                }
-            %>
+            <c:forEach items="${pointBean.results}" var="result" varStatus="status">
+                {
+                    x: ${result.x},
+                    y: ${result.y},
+                    r: ${result.r},
+                    hit: ${result.hit},
+                    timestamp: "${result.timestamp}",
+                    processingTime: ${result.processingTime}
+                }<c:if test="${not status.last}">,</c:if>
+            </c:forEach>
         ];
     </script>
 
