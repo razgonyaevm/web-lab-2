@@ -1,0 +1,396 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    line-height: 1.6;
+}
+
+.header {
+    background: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.form-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.form-section {
+    flex: 1;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.results-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* Стили для результатов */
+.hit {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.miss {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Ссылки */
+a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Стили для уведомлений */
+.notification {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.notification:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Индикатор статуса формы */
+#formStatusIndicator {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 999;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Состояния индикатора */
+#formStatusIndicator.ready {
+    background: #28a745;
+    color: white;
+    border-left: 4px solid #1e7e34;
+}
+
+#formStatusIndicator.not-ready {
+    background: #dc3545;
+    color: white;
+    border-left: 4px solid #c82333;
+}
+
+.result-summary {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.result-details {
+    margin: 20px 0;
+}
+
+.multiple-results {
+    background: #e7f3ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
+.results-info {
+    background: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.latest-results {
+    background: #e7f3ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.latest-result-item {
+    background: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 3px;
+    border-left: 4px solid #007bff;
+    font-size: 14px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.current-check {
+    background: #e7f3ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 25px 0;
+    border: 1px solid #b3d9ff;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.current-check h3 {
+    margin-top: 0;
+    color: #0056b3;
+    border-bottom: 2px solid #b3d9ff;
+    padding-bottom: 10px;
+    font-size: 1.3em;
+}
+
+/* Стили для результатов по радиусам */
+.radius-result {
+    background: white;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border-left: 5px solid #28a745;
+    font-size: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    color: #28a745;
+    font-weight: 600;
+}
+
+.radius-result:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.radius-result.miss {
+    border-left-color: #dc3545;
+    color: #dc3545;
+}
+
+.radius-result strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Контейнер секции результатов */
+.results-section {
+    margin-top: 30px;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.results-section h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.results-info {
+    background: #e7f3ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+    font-size: 14px;
+}
+
+.results-info p {
+    margin: 5px 0;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border: 2px dashed #dee2e6;
+}
+
+/* Стили для таблицы результатов */
+#resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#resultsTable thead {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+#resultsTable th {
+    padding: 15px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#resultsTable tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#resultsTable tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#resultsTable tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+#resultsTable tbody tr:hover {
+    background-color: #e3f2fd;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+#resultsTable td {
+    padding: 12px 10px;
+    text-align: center;
+    border: none;
+    color: #333;
+}
+
+#resultsTable td:first-child {
+    font-weight: 600;
+    color: #007bff;
+}
+
+#resultsTable td.hit {
+    color: #28a745;
+    font-weight: 600;
+}
+
+#resultsTable td.miss {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Стили для статусов попадания */
+.hit {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.miss {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.point {
+    transition: all 0.3s ease;
+}
+
+.point.hit {
+    fill: #28a745;
+    stroke: #1e7e34;
+    stroke-width: 0.03;
+}
+
+.point.miss {
+    fill: #dc3545;
+    stroke: #c82333;
+    stroke-width: 0.03
+}
+
+.point.preview {
+    fill: orange;
+    stroke: darkorange;
+    stroke-width: 0.05;
+    animation: pulse 1s infinite;
+}
