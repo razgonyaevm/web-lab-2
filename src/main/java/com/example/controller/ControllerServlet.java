@@ -41,8 +41,9 @@ public class ControllerServlet extends HttpServlet {
     String x = req.getParameter("x");
     String y = req.getParameter("y");
     String[] rValues = req.getParameterValues("r");
+    String cleared = req.getParameter("cleared");
 
-    if ("clear".equals(action)) {
+    if ("clear".equals(action) || "true".equals(cleared)) {
       pointBean.clearResults();
       req.getSession().removeAttribute("pointBean");
       resp.sendRedirect(req.getContextPath() + "/index.jsp?cleared=true");
