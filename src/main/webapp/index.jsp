@@ -108,18 +108,20 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${pointBean.results}" var="result" varStatus="status">
+                            <c:set var="reverseIndex" value="${pointBean.results.size() - 1 - status.index}"/>
+                            <c:set var="currentResult" value="${pointBean.results[reverseIndex]}"/>
                             <tr>
-                                <td>${result.x}</td>
-                                <td>${result.y}</td>
-                                <td>${result.r}</td>
-                                <td class="${result.hit ? 'hit' : 'miss'}">
+                                <td>${currentResult.x}</td>
+                                <td>${currentResult.y}</td>
+                                <td>${currentResult.r}</td>
+                                <td class="${currentResult.hit ? 'hit' : 'miss'}">
                                     <c:choose>
-                                        <c:when test="${result.hit}">Попадание</c:when>
+                                        <c:when test="${currentResult.hit}">Попадание</c:when>
                                         <c:otherwise>Промах</c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td>${result.timestamp}</td>
-                                <td>${result.processingTime} мс</td>
+                                <td>${currentResult.timestamp}</td>
+                                <td>${currentResult.processingTime} мс</td>
                             </tr>
                         </c:forEach>
                     </tbody>
