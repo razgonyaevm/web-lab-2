@@ -51,9 +51,9 @@
         </div>
 
 
-        <%-- Показываем результаты для каждого радиуса --%>
+        <%-- Показываем результаты для каждой точки --%>
         <div class="current-check">
-            <h3>Результаты проверки для каждого радиуса:</h3>
+            <h3>Результаты проверки для каждой точки:</h3>
             <c:set var="currentResults" value="${pointBean.results}"/>
             <c:set var="foundResults" value="false"/>
 
