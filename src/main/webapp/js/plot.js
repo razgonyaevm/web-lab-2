@@ -207,7 +207,7 @@ function drawArea(r) {
     // 3. Четверть круга (третья четверть)
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, (r / 2) * scale, Math.PI, 1.5 * Math.PI);
+    ctx.arc(centerX, centerY, (r / 2) * scale, 0.5 * Math.PI, Math.PI);
     ctx.lineTo(centerX, centerY);
     ctx.closePath();
     ctx.fill();
