@@ -63,7 +63,7 @@
 
                 <br>
                 <button type="submit">Проверить</button>
-                <button type="submit" name="action" value="clear">Очистить данные</button>
+                <button type="button" name="action" value="clear">Очистить данные</button>
             </form>
         </div>
 
