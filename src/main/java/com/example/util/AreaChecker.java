@@ -44,7 +44,10 @@ public class AreaChecker {
    * @return истинно, если координаты валидны, иначе ложь
    */
   public static boolean validateCoordinates(double x, double y) {
-    return x >= -3 && x <= 5 && y >= -3 && y <= 5;
+
+    return Arrays.asList(-3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0).contains(x)
+        && y >= -3
+        && y <= 5;
   }
 
   /**
