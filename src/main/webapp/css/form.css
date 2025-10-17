@@ -1,0 +1,104 @@
+/* Стили формы */
+#pointForm {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#pointForm h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+/* Поля ввода */
+input[type="text"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Радио кнопки и чекбоксы */
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+/* Группы чекбоксов */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Кнопки */
+button, input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Сообщения об ошибках */
+.error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* SVG график */
+#plot {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.point {
+    fill: blue;
+    r: 3;
+}
+
+.point.hit {
+    fill: #28a745;
+    stroke: #28a745;
+}
+
+.point.miss {
+    fill: #dc3545;
+    stroke: #dc3545;
+}
+
+/* Информация о графике */
+#plotInfo {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 14px;
+}
