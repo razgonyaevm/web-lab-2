@@ -103,14 +103,13 @@ function initializeClearButton() {
     const clearButton = document.querySelector('button[name="action"][value="clear"]');
     if (clearButton) {
         clearButton.addEventListener('click', async (e) => {
-            e.preventDefault();
             // Подтверждение очистки
             if (confirm('Вы уверены, что хотите очистить все результаты?')) {
                 showToast('Очистка результатов...', 'info', 2000);
 
                 try {
                     // Отправляем запрос на сервер для очистки
-                    const response = await fetch(`${getConfig().contextPath}/control?cleared=true`, {
+                    const response = await fetch(`${getConfig().contextPath}/control?action=clear`, {
                         method: 'GET'
                     });
 
