@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.PointBean;
 import com.example.model.PointResult;
 import com.example.util.AreaChecker;
+import com.example.util.RequestParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -33,22 +34,20 @@ public class AreaCheckServlet extends HttpServlet {
   private void processRequest(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      // Получаем параметры
-      String[] xParams = req.getParameterValues("x");
-      String yParam = req.getParameter("y");
-      String[] rValues = req.getParameterValues("r");
+      RequestParser.PointParameters params = RequestParser.parsePointParameters(req);
 
-      if (xParams == null
-          || xParams.length == 0
-          || yParam == null
-          || rValues == null
-          || rValues.length == 0) {
+      // Валидация параметров
+      if (!params.hasPointData()) {
         throw new IllegalArgumentException("Не все параметры указаны");
       }
 
+      String[] xParams = params.getXParams();
+      String yParam = params.getYParam();
+      String[] rValues = params.getRValues();
+
       double y = Double.parseDouble(yParam);
 
-      // Валидация данных
+      // Валидация координат
       if (!AreaChecker.validateCoordinates(y)) {
         throw new IllegalArgumentException("Неверные координаты");
       }

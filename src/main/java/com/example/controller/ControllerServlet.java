@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.PointBean;
+import com.example.util.RequestParser;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -30,23 +31,23 @@ public class ControllerServlet extends HttpServlet {
   private void processRequest(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    // Получаем или создаем Bean для хранения результатов
+    RequestParser.PointParameters params = RequestParser.parsePointParameters(req);
+
+    // Получаем или создаем bean
     PointBean pointBean = (PointBean) req.getSession().getAttribute("pointBean");
     if (pointBean == null) {
       pointBean = new PointBean();
       req.getSession().setAttribute("pointBean", pointBean);
     }
 
-    String action = req.getParameter("action");
-    String x = req.getParameter("x");
-    String y = req.getParameter("y");
-    String[] rValues = req.getParameterValues("r");
-
-    if ("clear".equals(action)) {
+    if (params.isClearAction()) {
       pointBean.clearResults();
-      req.getSession().removeAttribute("pointBean");
       resp.sendRedirect(req.getContextPath() + "/index.jsp?cleared=true");
-    } else if (x != null && y != null && rValues != null && rValues.length > 0) {
+      return;
+    }
+
+    // Проверка данных для точки
+    if (params.hasPointData()) {
       req.getRequestDispatcher("/check").forward(req, resp);
     } else {
       req.getRequestDispatcher("/index.jsp").forward(req, resp);
