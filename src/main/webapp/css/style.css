@@ -81,13 +81,54 @@ a:hover {
 
 /* Стили для уведомлений */
 .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    font-family: Arial, sans-serif;
     transition: all 0.3s ease-in-out;
+    transform: translateX(20px);
 }
 
 .notification:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notification-error {
+    background: #dc3545;
+    border-left: 4px solid #c82333;
+}
+
+.notification-success {
+    background: #28a745;
+    border-left: 4px solid #1e7e34;
+}
+
+.notification-warning {
+    background: #ffc107;
+    color: black;
+    border-left: 4px solid #e0a800;
+}
+
+.notification-info {
+    background: #17a2b8;
+    border-left: 4px solid #138496;
+}
+
+/* Стили для toast-уведомлений */
+.notification.toast {
+    top: auto;
+    bottom: 20px;
+    font-size: 14px;
+    padding: 10px 15px;
 }
 
 /* Индикатор статуса формы */

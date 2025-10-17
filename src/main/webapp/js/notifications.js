@@ -2,34 +2,6 @@
  * Система уведомлений
  */
 
-// Стили для уведомлений
-const NOTIFICATION_STYLES = {
-    base: `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 5px;
-        color: white;
-        font-weight: bold;
-        z-index: 1000;
-        opacity: 0;
-        transition: all 0.3s ease-in-out;
-        max-width: 400px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        font-family: Arial, sans-serif;
-    `,
-    types: {
-        error: 'background: #dc3545; border-left: 4px solid #c82333;',
-        success: 'background: #28a745; border-left: 4px solid #1e7e34;',
-        warning: 'background: #ffc107; color: black; border-left: 4px solid #e0a800;',
-        info: 'background: #17a2b8; border-left: 4px solid #138496;'
-    }
-};
-
-// Счетчик уведомлений для управления z-index
-let notificationCounter = 1000;
 
 /**
  * Показать уведомление
@@ -43,13 +15,6 @@ function showNotification(message, type = 'info', duration = 5000) {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-
-    // Увеличиваем счетчик для z-index
-    notificationCounter++;
-
-    // Применяем стили
-    const styles = NOTIFICATION_STYLES.base.replace('z-index: 1000;', `z-index: ${notificationCounter};`);
-    notification.style.cssText = styles + NOTIFICATION_STYLES.types[type];
 
     // Добавляем иконку в зависимости от типа
     addNotificationIcon(notification, type);
@@ -68,15 +33,6 @@ function showNotification(message, type = 'info', duration = 5000) {
     notification.addEventListener('click', () => {
         clearTimeout(timeoutId);
         hideNotification(notification);
-    });
-
-    // Добавляем анимацию при наведении
-    notification.addEventListener('mouseenter', () => {
-        notification.style.transform = 'translateX(-5px)';
-    });
-
-    notification.addEventListener('mouseleave', () => {
-        notification.style.transform = 'translateX(0)';
     });
 
     console.log(`Notification shown: ${type} - ${message}`);
